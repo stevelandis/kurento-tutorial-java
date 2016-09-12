@@ -65,7 +65,7 @@ public class CallMediaPipeline {
     public final String ClaimID = "";
     public final String UserID = "";
 
-  private final MediaPipeline pipeline;
+  public final MediaPipeline pipeline;
   private final WebRtcEndpoint webRtcCaller;
   public final WebRtcEndpoint webRtcCallee;
   private final RecorderEndpoint recorderCaller;
