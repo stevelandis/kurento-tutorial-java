@@ -121,10 +121,7 @@ FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
         System.out.print(recorderCallee);
         System.out.print(result);
         
-        VideoInfo videoInfo = webRtcCallee.getVideoInfo();
-        
-        System.out.print(videoInfo);
-sendPost(FILENAME_CALLEE, ClaimID, UserID);
+        sendPost(FILENAME_CALLEE, ClaimID, UserID);
   }
 
 
@@ -168,6 +165,16 @@ private static void  sendPost(java.lang.String uri, java.lang.String ClaimID, ja
         HttpClient httpclient = new DefaultHttpClient();
 
         try {
+            
+            VideoInfo videoInfo = webRtcCallee.getVideoInfo();
+
+        JsonObject response = new JsonObject();
+        response.addProperty("id", "videoInfo");
+        response.addProperty("isSeekable", videoInfo.getIsSeekable());
+        response.addProperty("initSeekable", videoInfo.getSeekableInit());
+        response.addProperty("endSeekable", videoInfo.getSeekableEnd());
+        response.addProperty("videoDuration", videoInfo.getDuration());
+        System.out.println(response.toString());
 
             HttpPost httpPost = new HttpPost("http://www.losscapture.com/v1/data/recordvideo");
 
