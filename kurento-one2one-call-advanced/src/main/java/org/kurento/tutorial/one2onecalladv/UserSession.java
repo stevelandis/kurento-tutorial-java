@@ -57,6 +57,7 @@ public class UserSession {
     this.session = session;
     this.name = name;
     this.ClaimID = ClaimID;
+    this.UserID = UserID;
   }
 
   public WebSocketSession getSession() {
