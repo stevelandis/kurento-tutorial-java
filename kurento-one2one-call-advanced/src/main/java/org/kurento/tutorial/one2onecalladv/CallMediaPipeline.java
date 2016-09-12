@@ -29,6 +29,7 @@ import org.kurento.client.Continuation;
 import org.kurento.client.RecorderEndpoint;
 import org.kurento.client.WebRtcEndpoint;
 import org.kurento.client.StoppedEvent;
+import org.kurento.client.VideoInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
@@ -119,6 +120,7 @@ FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
         System.out.println("recording done ");
         System.out.print(recorderCallee);
         System.out.print(result);
+        System.out.print(recorderCallee.getVideoInfo());
 sendPost(FILENAME_CALLEE, ClaimID, UserID);
   }
 
