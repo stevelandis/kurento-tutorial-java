@@ -42,6 +42,8 @@ public class UserSession {
   private static final Logger log = LoggerFactory.getLogger(UserSession.class);
 
   private final String name;
+  private final String ClaimID;
+  private final String UserID;
   private final WebSocketSession session;
 
   private String sdpOffer;
@@ -51,9 +53,10 @@ public class UserSession {
   private WebRtcEndpoint playingWebRtcEndpoint;
   private final List<IceCandidate> candidateList = new ArrayList<>();
 
-  public UserSession(WebSocketSession session, String name) {
+  public UserSession(WebSocketSession session, String name, String ClaimID, String UserID) {
     this.session = session;
     this.name = name;
+    this.ClaimID = ClaimID;
   }
 
   public WebSocketSession getSession() {
@@ -64,6 +67,12 @@ public class UserSession {
     return name;
   }
 
+  public String getClaimID() {
+    return ClaimID;
+  }
+  public String getUserID() {
+    return UserID;
+  }
   public String getSdpOffer() {
     return sdpOffer;
   }

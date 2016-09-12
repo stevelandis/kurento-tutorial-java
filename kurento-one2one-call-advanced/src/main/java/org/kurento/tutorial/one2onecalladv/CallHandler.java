@@ -39,6 +39,19 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
+
 /**
  * Protocol handler for 1 to 1 video call communication.
  *
@@ -108,8 +121,10 @@ public class CallHandler extends TextWebSocketHandler {
 
   private void register(WebSocketSession session, JsonObject jsonMessage) throws IOException {
     String name = jsonMessage.getAsJsonPrimitive("name").getAsString();
+    String ClaimID = jsonMessage.getAsJsonPrimitive("ClaimID").getAsString();
+    String UserID = jsonMessage.getAsJsonPrimitive("UserID").getAsString();
 
-    UserSession caller = new UserSession(session, name);
+    UserSession caller = new UserSession(session, name, ClaimID, UserID);
     String responseMsg = "accepted";
     if (name.isEmpty()) {
       responseMsg = "rejected: empty user name";
@@ -155,6 +170,8 @@ public class CallHandler extends TextWebSocketHandler {
     String from = jsonMessage.get("from").getAsString();
     final UserSession calleer = registry.getByName(from);
     String to = calleer.getCallingTo();
+    String ClaimID = callee.getClaimID();
+    String UserID = callee.getUserID();
 
     if ("accept".equals(callResponse)) {
       log.debug("Accepted call from '{}' to '{}'", from, to);
@@ -228,7 +245,7 @@ public class CallHandler extends TextWebSocketHandler {
 
       callMediaPipeline.getCallerWebRtcEp().gatherCandidates();
 
-      callMediaPipeline.record();
+      callMediaPipeline.record(ClaimID, UserID);
 
     } else {
       JsonObject response = new JsonObject();
@@ -259,6 +276,10 @@ public class CallHandler extends TextWebSocketHandler {
   }
 
   public void releasePipeline(UserSession session) {
+
+
+System.out.println("release pipeline");
+System.out.println(session.toString());
     String sessionId = session.getSessionId();
     // set to null the endpoint of the other user
 

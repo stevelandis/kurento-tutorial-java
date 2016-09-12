@@ -18,12 +18,31 @@ package org.kurento.tutorial.one2onecalladv;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.kurento.client.ErrorEvent;
+import org.kurento.client.EventListener;
+import java.io.IOException;
 
 import org.kurento.client.FaceOverlayFilter;
 import org.kurento.client.KurentoClient;
 import org.kurento.client.MediaPipeline;
+import org.kurento.client.Continuation;
 import org.kurento.client.RecorderEndpoint;
 import org.kurento.client.WebRtcEndpoint;
+import org.kurento.client.StoppedEvent;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
 /**
  * Media Pipeline (connection of Media Elements) for the advanced one to one video communication.
@@ -34,9 +53,16 @@ import org.kurento.client.WebRtcEndpoint;
  */
 public class CallMediaPipeline {
 
+  private static final Logger log = LoggerFactory.getLogger(CallMediaPipeline.class);
   private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-S");
-  public static final String RECORDING_PATH = "file:///tmp/" + df.format(new Date()) + "-";
+    public static final String RECORDING_BASE = "file:///mnt/s3/";
+  public static final String RECORDING_PATH = df.format(new Date()) + "-";
   public static final String RECORDING_EXT = ".webm";
+
+    public static String FILENAME_CALLER = "";
+    public static String FILENAME_CALLEE = "";
+    public final String ClaimID = "";
+    public final String UserID = "";
 
   private final MediaPipeline pipeline;
   private final WebRtcEndpoint webRtcCaller;
@@ -53,9 +79,15 @@ public class CallMediaPipeline {
     webRtcCaller = new WebRtcEndpoint.Builder(pipeline).build();
     webRtcCallee = new WebRtcEndpoint.Builder(pipeline).build();
 
-    recorderCaller = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + from + RECORDING_EXT)
+
+    System.out.println(RECORDING_PATH + from + RECORDING_EXT);
+FILENAME_CALLER = RECORDING_PATH + from + RECORDING_EXT;
+    recorderCaller = new RecorderEndpoint.Builder(pipeline, RECORDING_BASE + RECORDING_PATH + from + RECORDING_EXT)
         .build();
-    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + to + RECORDING_EXT)
+
+    System.out.println(RECORDING_PATH + to + RECORDING_EXT);
+FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
+    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT)
         .build();
 
     String appServerUrl = System.getProperty("app.server.url",
@@ -78,9 +110,29 @@ public class CallMediaPipeline {
     faceOverlayFilterCallee.connect(recorderCallee);
   }
 
-  public void record() {
+  public void record(final String ClaimID, final String UserID) {
     recorderCaller.record();
-    recorderCallee.record();
+    recorderCallee.record(new Continuation<Void>() {
+
+      @Override
+      public void onSuccess(Void result) throws Exception {
+        System.out.println("recording done ");
+        System.out.print(recorderCallee);
+        System.out.print(result);
+sendPost(FILENAME_CALLEE, ClaimID, UserID);
+  }
+
+
+      @Override
+      public void onError(Throwable cause) throws Exception {
+        System.out.println("recording failed");
+      }
+});
+  }
+
+
+  public void doNext() {
+    System.out.println("donext");
   }
 
   public String generateSdpAnswerForCaller(String sdpOffer) {
@@ -102,4 +154,51 @@ public class CallMediaPipeline {
   public WebRtcEndpoint getCalleeWebRtcEp() {
     return webRtcCallee;
   }
+
+
+private final String USER_AGENT = "Mozilla/5.0";
+
+private static void  sendPost(java.lang.String uri, java.lang.String ClaimID, java.lang.String UserID) {
+
+        HttpClient httpclient = new DefaultHttpClient();
+
+        try {
+
+            HttpPost httpPost = new HttpPost("http://www.losscapture.com/v1/data/recordvideo");
+
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(3);
+            nameValuePairs.add(new BasicNameValuePair("ClaimID", ClaimID));
+            nameValuePairs.add(new BasicNameValuePair("UserID", UserID));
+            nameValuePairs.add(new BasicNameValuePair("video",uri));
+            httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs)); 
+
+            System.out.println("executing request " + httpPost.getRequestLine());
+            HttpResponse response = httpclient.execute(httpPost);
+            HttpEntity resEntity = response.getEntity();
+
+            System.out.println("----------------------------------------");
+            System.out.println(response.getStatusLine());
+            if (resEntity != null) {
+                System.out.println("Response content length: " + resEntity.getContentLength());
+                System.out.println("Chunked?: " + resEntity.isChunked());
+                String responseBody = EntityUtils.toString(resEntity);
+                System.out.println("Data: " + responseBody);
+}
+           
+           
+            EntityUtils.consume(resEntity);
+        } 
+        catch (Exception e) {
+            System.out.println(e);
+        }
+        finally {
+            // When HttpClient instance is no longer needed,
+            // shut down the connection manager to ensure
+            // immediate deallocation of all system resources
+            httpclient.getConnectionManager().shutdown();
+        }
+
+
+
+    }
 }
