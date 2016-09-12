@@ -88,7 +88,7 @@ FILENAME_CALLER = RECORDING_PATH + from + RECORDING_EXT;
 
     System.out.println(RECORDING_PATH + to + RECORDING_EXT);
 FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
-    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT)
+    final recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT)
         .build();
 
     String appServerUrl = System.getProperty("app.server.url",
@@ -120,7 +120,10 @@ FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
         System.out.println("recording done ");
         System.out.print(recorderCallee);
         System.out.print(result);
-        System.out.print(recorderCallee.getVideoInfo());
+        
+        VideoInfo videoInfo = recorderCallee.getVideoInfo();
+        
+        System.out.print(videoInfo);
 sendPost(FILENAME_CALLEE, ClaimID, UserID);
   }
 
