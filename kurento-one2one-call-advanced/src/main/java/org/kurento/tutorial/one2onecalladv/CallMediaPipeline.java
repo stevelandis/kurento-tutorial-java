@@ -165,16 +165,6 @@ private static void  sendPost(java.lang.String uri, java.lang.String ClaimID, ja
         HttpClient httpclient = new DefaultHttpClient();
 
         try {
-            
-            VideoInfo videoInfo = pipeline.getVideoInfo();
-
-        JsonObject response = new JsonObject();
-        response.addProperty("id", "videoInfo");
-        response.addProperty("isSeekable", videoInfo.getIsSeekable());
-        response.addProperty("initSeekable", videoInfo.getSeekableInit());
-        response.addProperty("endSeekable", videoInfo.getSeekableEnd());
-        response.addProperty("videoDuration", videoInfo.getDuration());
-        System.out.println(response.toString());
 
             HttpPost httpPost = new HttpPost("http://www.losscapture.com/v1/data/recordvideo");
 
