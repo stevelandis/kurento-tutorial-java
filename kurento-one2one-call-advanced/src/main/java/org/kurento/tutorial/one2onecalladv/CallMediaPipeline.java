@@ -166,7 +166,7 @@ private static void  sendPost(java.lang.String uri, java.lang.String ClaimID, ja
 
         try {
             
-            VideoInfo videoInfo = webRtcCallee.getVideoInfo();
+            VideoInfo videoInfo = this.getCalleeWebRtcEp().getVideoInfo();
 
         JsonObject response = new JsonObject();
         response.addProperty("id", "videoInfo");
