@@ -166,7 +166,7 @@ private static void  sendPost(java.lang.String uri, java.lang.String ClaimID, ja
 
         try {
             
-            VideoInfo videoInfo = playMediaPipeline.player.getVideoInfo();
+            VideoInfo videoInfo = pipeline.getVideoInfo();
 
         JsonObject response = new JsonObject();
         response.addProperty("id", "videoInfo");
