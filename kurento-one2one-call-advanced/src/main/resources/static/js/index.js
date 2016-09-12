@@ -15,7 +15,7 @@
  *
  */
 
-var ws = new WebSocket('wss://' + location.host + '/call');
+var ws = new WebSocket('wss://ec2-54-201-8-247.us-west-2.compute.amazonaws.com:8443/call');
 var videoInput;
 var videoOutput;
 var webRtcPeer;
@@ -219,6 +219,7 @@ function incomingCall(message) {
 		var options = {
 			localVideo : videoInput,
 			remoteVideo : videoOutput,
+			mediaConstraints : getConstraints(),
 			onicecandidate : onIceCandidate
 		}
 		webRtcPeer = new kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options,
@@ -259,11 +260,25 @@ function register() {
 		document.getElementById('name').focus();
 		return;
 	}
+	var ClaimID = document.getElementById('ClaimID').value;
+	if (ClaimID == '') {
+		window.alert('You must insert a ClaimID');
+		document.getElementById('ClaimID').focus();
+		return;
+	}
+	var UserID = document.getElementById('UserID').value;
+	if (UserID == '') {
+		window.alert('You must insert a UserID');
+		document.getElementById('UserID').focus();
+		return;
+	}
 	setRegisterState(REGISTERING);
 
 	var message = {
 		id : 'register',
-		name : name
+		name : name,
+                ClaimID: ClaimID,
+                UserID: UserID
 	};
 	sendMessage(message);
 }
@@ -280,6 +295,7 @@ function call() {
 	var options = {
 		localVideo : videoInput,
 		remoteVideo : videoOutput,
+			mediaConstraints : getConstraints(),
 		onicecandidate : onIceCandidate
 	}
 	webRtcPeer = new kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options,
@@ -318,6 +334,7 @@ function play() {
 
 	var options = {
 		remoteVideo : videoOutput,
+			mediaConstraints : getConstraints(),
 		onicecandidate : onIceCandidate
 	}
 	webRtcPeer = new kurentoUtils.WebRtcPeer.WebRtcPeerRecvonly(options,
@@ -365,7 +382,7 @@ function stop(message) {
 
 function sendMessage(message) {
 	var jsonMessage = JSON.stringify(message);
-	console.log('Senging message: ' + jsonMessage);
+	console.log('Sending message: ' + jsonMessage);
 	ws.send(jsonMessage);
 }
 
@@ -401,3 +418,20 @@ $(document).delegate('*[data-toggle="lightbox"]', 'click', function(event) {
 	event.preventDefault();
 	$(this).ekkoLightbox();
 });
+
+function getConstraints() {
+	var constraints = {
+			audio : true,
+	video : {
+		mandatory : {
+			maxWidth : 640,
+                        minWidth: 640,
+                        minHeight: 360,
+                        maxHeight: 360,
+			maxFrameRate : 15,
+			minFrameRate : 15
+		}
+	}
+	}
+	return constraints;
+}
