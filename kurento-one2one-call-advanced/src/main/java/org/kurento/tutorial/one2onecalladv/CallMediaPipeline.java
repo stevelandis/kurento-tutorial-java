@@ -121,7 +121,7 @@ FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
         System.out.print(recorderCallee);
         System.out.print(result);
         
-        VideoInfo videoInfo = recorderCallee.getVideoInfo();
+        VideoInfo videoInfo = webRtcCallee.getVideoInfo();
         
         System.out.print(videoInfo);
 sendPost(FILENAME_CALLEE, ClaimID, UserID);
