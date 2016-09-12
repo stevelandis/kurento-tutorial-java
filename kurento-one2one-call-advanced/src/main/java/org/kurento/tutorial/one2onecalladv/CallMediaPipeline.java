@@ -67,7 +67,7 @@ public class CallMediaPipeline {
 
   private final MediaPipeline pipeline;
   private final WebRtcEndpoint webRtcCaller;
-  private final WebRtcEndpoint webRtcCallee;
+  public final WebRtcEndpoint webRtcCallee;
   private final RecorderEndpoint recorderCaller;
   private final RecorderEndpoint recorderCallee;
 
