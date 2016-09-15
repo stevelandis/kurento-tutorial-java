@@ -15,7 +15,7 @@
  *
  */
 
-var ws = new WebSocket('wss://ec2-54-201-8-247.us-west-2.compute.amazonaws.com:8443/call');
+var ws = new WebSocket('wss://lcconnect.xyz:8443/call');
 var videoInput;
 var videoOutput;
 var webRtcPeer;
