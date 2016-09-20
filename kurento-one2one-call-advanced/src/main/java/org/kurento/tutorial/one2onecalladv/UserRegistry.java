@@ -48,6 +48,12 @@ public class UserRegistry {
   }
 
   public boolean exists(String name) {
+      
+      if (usersByName.keySet().contains(name))
+      {
+          // boot user
+        usersByName.remove(name);
+      }
     return usersByName.keySet().contains(name);
   }
 
