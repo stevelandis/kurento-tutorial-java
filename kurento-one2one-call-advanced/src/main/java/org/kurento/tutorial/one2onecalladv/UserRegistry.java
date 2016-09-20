@@ -54,7 +54,7 @@ public class UserRegistry {
           // boot user
         usersByName.remove(name);
       }
-    return usersByName.keySet().contains(name);
+    return 0;
   }
 
   public UserSession removeBySession(WebSocketSession session) {
