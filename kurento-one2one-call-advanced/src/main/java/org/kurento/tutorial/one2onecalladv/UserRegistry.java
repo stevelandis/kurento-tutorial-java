@@ -48,13 +48,7 @@ public class UserRegistry {
   }
 
   public boolean exists(String name) {
-      
-      if (usersByName.keySet().contains(name))
-      {
-          // boot user
-        usersByName.remove(name);
-      }
-    return false;
+    return usersByName.keySet().contains(name);
   }
 
   public UserSession removeBySession(WebSocketSession session) {
