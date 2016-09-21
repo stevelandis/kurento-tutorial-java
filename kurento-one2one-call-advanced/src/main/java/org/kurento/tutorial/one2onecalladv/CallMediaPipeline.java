@@ -91,24 +91,12 @@ FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
     recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT)
         .build();
 
-    String appServerUrl = System.getProperty("app.server.url",
-        One2OneCallAdvApp.DEFAULT_APP_SERVER_URL);
-    FaceOverlayFilter faceOverlayFilterCaller = new FaceOverlayFilter.Builder(pipeline).build();
-    faceOverlayFilterCaller.setOverlayedImage(appServerUrl + "/img/mario-wings.png", -0.35F, -1.2F,
-        1.6F, 1.6F);
-
-    FaceOverlayFilter faceOverlayFilterCallee = new FaceOverlayFilter.Builder(pipeline).build();
-    faceOverlayFilterCallee.setOverlayedImage(appServerUrl + "/img/Hat.png", -0.2F, -1.35F, 1.5F,
-        1.5F);
-
     // Connections
-    webRtcCaller.connect(faceOverlayFilterCaller);
-    faceOverlayFilterCaller.connect(webRtcCallee);
-    faceOverlayFilterCaller.connect(recorderCaller);
+    webRtcCaller.connect(webRtcCallee);
+    webRtcCaller.connect(recorderCaller);
 
-    webRtcCallee.connect(faceOverlayFilterCallee);
-    faceOverlayFilterCallee.connect(webRtcCaller);
-    faceOverlayFilterCallee.connect(recorderCallee);
+    webRtcCallee.connect(webRtcCaller);
+    webRtcCallee.connect(recorderCallee);
   }
 
   public void record(final String ClaimID, final String UserID) {
