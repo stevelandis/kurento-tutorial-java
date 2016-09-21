@@ -90,7 +90,7 @@ FILENAME_CALLER = RECORDING_PATH + from + RECORDING_EXT;
 FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
     recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT)
         .build();
-    webRtcCallee.setProcessingWidth(1280);
+    
     // Connections
     webRtcCaller.connect(webRtcCallee);
     webRtcCaller.connect(recorderCaller);
