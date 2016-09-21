@@ -94,9 +94,12 @@ FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
         .build();
     
     // Connections
+    webRtcCaller.setMaxVideoRecvBandwidth(HIGH_QUALITY_BITRATE / 1000); // kbps
+    webRtcCaller.setMaxVideoSendBandwidth(HIGH_QUALITY_BITRATE / 1000); // kbps
     webRtcCaller.connect(webRtcCallee);
     webRtcCaller.connect(recorderCaller);
-
+    
+    webRtcCallee.setMaxVideoRecvBandwidth(HIGH_QUALITY_BITRATE / 1000); // kbps
     webRtcCallee.setMaxVideoSendBandwidth(HIGH_QUALITY_BITRATE / 1000); // kbps
     webRtcCallee.connect(webRtcCaller);
     webRtcCallee.connect(recorderCallee);
