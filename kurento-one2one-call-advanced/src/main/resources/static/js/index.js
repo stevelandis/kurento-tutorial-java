@@ -426,8 +426,8 @@ function getConstraints() {
 		mandatory : {
 			maxWidth : 1920,
                         minWidth: 640,
-                        minHeight: 1080,
-                        maxHeight: 360,
+                        maxHeight: 1080,
+                        minHeight: 360,
 			maxFrameRate : 15,
 			minFrameRate : 15
 		}
