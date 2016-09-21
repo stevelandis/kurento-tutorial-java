@@ -36,7 +36,7 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 @EnableWebSocket
 public class One2OneCallAdvApp implements WebSocketConfigurer {
 
-  static final String DEFAULT_APP_SERVER_URL = "https://localhost:8443";
+  static final String DEFAULT_APP_SERVER_URL = "https://lcconnect.xyz:8443";
 
   @Bean
   public CallHandler callHandler() {
