@@ -424,9 +424,9 @@ function getConstraints() {
 			audio : true,
 	video : {
 		mandatory : {
-			maxWidth : 640,
+			maxWidth : 1920,
                         minWidth: 640,
-                        minHeight: 360,
+                        minHeight: 1080,
                         maxHeight: 360,
 			maxFrameRate : 15,
 			minFrameRate : 15
