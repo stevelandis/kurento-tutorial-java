@@ -70,6 +70,8 @@ public class CallMediaPipeline {
   public final WebRtcEndpoint webRtcCallee;
   private final RecorderEndpoint recorderCaller;
   private final RecorderEndpoint recorderCallee;
+  public static final int HIGH_QUALITY_BITRATE = 2000000; // bps
+  public static final int LOW_QUALITY_BITRATE = 240000; // bps
 
   public CallMediaPipeline(KurentoClient kurento, String from, String to) {
 
@@ -95,6 +97,7 @@ FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
     webRtcCaller.connect(webRtcCallee);
     webRtcCaller.connect(recorderCaller);
 
+    webRtcCallee.setMaxVideoSendBandwidth(HIGH_QUALITY_BITRATE / 1000); // kbps
     webRtcCallee.connect(webRtcCaller);
     webRtcCallee.connect(recorderCallee);
   }
