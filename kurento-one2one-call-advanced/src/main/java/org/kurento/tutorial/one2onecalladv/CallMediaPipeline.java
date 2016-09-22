@@ -102,7 +102,7 @@ FILENAME_CALLER = RECORDING_PATH + from + RECORDING_EXT;
 
     System.out.println(RECORDING_PATH + to + RECORDING_EXT);
 FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
-    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT).stopOnEndOfStream().build();
+    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT).stopOnEndOfStream().withMediaProfile(MediaProfileSpecType.WEBM ).build();
     
     // Connections
     webRtcCaller.setMaxVideoRecvBandwidth(HIGH_QUALITY_BITRATE / 1000); // kbps
@@ -173,27 +173,6 @@ private final String USER_AGENT = "Mozilla/5.0";
 private static void  sendPost(java.lang.String uri, java.lang.String ClaimID, java.lang.String UserID) {
 
         HttpClient httpclient = new DefaultHttpClient();
-        
-        
-        try {
-        
-        Path file = Paths.get("/mnt/s3/" + uri);
-BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
-
-System.out.println("creationTime: " + attr.creationTime());
-System.out.println("lastAccessTime: " + attr.lastAccessTime());
-System.out.println("lastModifiedTime: " + attr.lastModifiedTime());
-
-System.out.println("isDirectory: " + attr.isDirectory());
-System.out.println("isOther: " + attr.isOther());
-System.out.println("isRegularFile: " + attr.isRegularFile());
-System.out.println("isSymbolicLink: " + attr.isSymbolicLink());
-System.out.println("size: " + attr.size());
-        
-        } 
-        catch (Exception e) {
-            System.out.println(e);
-        }
 
         try {
 
