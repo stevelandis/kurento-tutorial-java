@@ -428,8 +428,8 @@ function getConstraints() {
                         minWidth: 640,
                         maxHeight: 1080,
                         minHeight: 360,
-			maxFrameRate : 15,
-			minFrameRate : 15
+			maxFrameRate : 30,
+			minFrameRate : 30
 		}
 	}
 	}
