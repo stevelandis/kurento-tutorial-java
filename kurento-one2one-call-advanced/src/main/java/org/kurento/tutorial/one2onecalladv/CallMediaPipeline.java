@@ -30,6 +30,7 @@ import org.kurento.client.RecorderEndpoint;
 import org.kurento.client.WebRtcEndpoint;
 import org.kurento.client.StoppedEvent;
 import org.kurento.client.VideoInfo;
+import org.kurento.client.MediaProfileSpecType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.util.ArrayList;
@@ -90,7 +91,7 @@ FILENAME_CALLER = RECORDING_PATH + from + RECORDING_EXT;
 
     System.out.println(RECORDING_PATH + to + RECORDING_EXT);
 FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
-    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT)
+    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT).stopOnEndOfStream().withMediaProfile(MediaProfileSpecType.WEBM )
         .build();
     
     // Connections
