@@ -91,7 +91,7 @@ FILENAME_CALLER = RECORDING_PATH + from + RECORDING_EXT;
 
     System.out.println(RECORDING_PATH + to + RECORDING_EXT);
 FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
-    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT).stopOnEndOfStream()
+    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT).stopOnEndOfStream().withMediaProfile(MediaProfileSpecType.WEBM )
         .build();
     
     // Connections
