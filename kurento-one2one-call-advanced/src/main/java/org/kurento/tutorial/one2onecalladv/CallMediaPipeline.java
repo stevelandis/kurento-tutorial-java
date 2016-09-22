@@ -94,21 +94,18 @@ FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
     recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT).stopOnEndOfStream().withMediaProfile(MediaProfileSpecType.WEBM )
         .build();
     
-    // Connections
-    webRtcCaller.setMaxVideoRecvBandwidth(HIGH_QUALITY_BITRATE / 1000); // kbps
-    webRtcCaller.setMaxVideoSendBandwidth(HIGH_QUALITY_BITRATE / 1000); // kbps
+    
     webRtcCaller.connect(webRtcCallee);
     webRtcCaller.connect(recorderCaller);
     
-    webRtcCallee.setMaxVideoRecvBandwidth(HIGH_QUALITY_BITRATE / 1000); // kbps
-    webRtcCallee.setMaxVideoSendBandwidth(HIGH_QUALITY_BITRATE / 1000); // kbps
     webRtcCallee.connect(webRtcCaller);
     webRtcCallee.connect(recorderCallee);
   }
 
   public void record(final String ClaimID, final String UserID) {
     recorderCaller.record();
-    recorderCallee.record(new Continuation<Void>() {
+    recorderCallee.record();
+    recorderCallee.release(new Continuation<Void>() {
 
       @Override
       public void onSuccess(Void result) throws Exception {
