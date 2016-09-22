@@ -129,9 +129,6 @@ FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
         System.out.print(recorderCallee.getStats());
         System.out.println("result");
         System.out.print(result);
-        System.out.println("path");
-        System.out.print(path);
-        
         
         sendPost(FILENAME_CALLEE, ClaimID, UserID);
   }
