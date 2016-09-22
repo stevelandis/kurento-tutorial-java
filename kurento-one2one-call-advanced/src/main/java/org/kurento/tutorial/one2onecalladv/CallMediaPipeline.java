@@ -46,6 +46,16 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.BasicFileAttributeView;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileTime;
+import java.text.SimpleDateFormat;
+
 /**
  * Media Pipeline (connection of Media Elements) for the advanced one to one video communication.
  * 
@@ -119,8 +129,7 @@ FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
         System.out.println("result");
         System.out.print(result);
         
-        Path file = RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT;
-BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
+BasicFileAttributes attr = Files.readAttributes(RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT, BasicFileAttributes.class);
 
 System.out.println("creationTime: " + attr.creationTime());
 System.out.println("lastAccessTime: " + attr.lastAccessTime());
