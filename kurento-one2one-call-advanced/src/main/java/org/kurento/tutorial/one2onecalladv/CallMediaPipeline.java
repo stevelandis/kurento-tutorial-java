@@ -102,16 +102,16 @@ FILENAME_CALLER = RECORDING_PATH + from + RECORDING_EXT;
 
     System.out.println(RECORDING_PATH + to + RECORDING_EXT);
 FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
-    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT).stopOnEndOfStream().withMediaProfile(MediaProfileSpecType.WEBM ).build();
+    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT).stopOnEndOfStream().withMediaProfile(MediaProfileSpecType.WEBM).build();
     
     // Connections
-    webRtcCaller.setMaxVideoRecvBandwidth(HIGH_QUALITY_BITRATE / 1000); // kbps
-    webRtcCaller.setMaxVideoSendBandwidth(HIGH_QUALITY_BITRATE / 1000); // kbps
+    //webRtcCaller.setMaxVideoRecvBandwidth(HIGH_QUALITY_BITRATE / 1000); // kbps
+    //webRtcCaller.setMaxVideoSendBandwidth(HIGH_QUALITY_BITRATE / 1000); // kbps
     webRtcCaller.connect(webRtcCallee);
     webRtcCaller.connect(recorderCaller);
     
-    webRtcCallee.setMaxVideoRecvBandwidth(HIGH_QUALITY_BITRATE / 1000); // kbps
-    webRtcCallee.setMaxVideoSendBandwidth(HIGH_QUALITY_BITRATE / 1000); // kbps
+    //webRtcCallee.setMaxVideoRecvBandwidth(HIGH_QUALITY_BITRATE / 1000); // kbps
+    //webRtcCallee.setMaxVideoSendBandwidth(HIGH_QUALITY_BITRATE / 1000); // kbps
     webRtcCallee.connect(webRtcCaller);
     webRtcCallee.connect(recorderCallee);
   }
@@ -129,6 +129,8 @@ FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
         System.out.print(recorderCallee.getStats());
         System.out.println("result");
         System.out.print(result);
+        System.out.println("path");
+        System.out.print(path);
         
         
         sendPost(FILENAME_CALLEE, ClaimID, UserID);
