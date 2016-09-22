@@ -59,7 +59,7 @@ public class CallMediaPipeline {
   private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-S");
     public static final String RECORDING_BASE = "file:///mnt/s3/";
   public static final String RECORDING_PATH = df.format(new Date()) + "-";
-  public static final String RECORDING_EXT = ".webm";
+  public static final String RECORDING_EXT = ".mp4";
 
     public static String FILENAME_CALLER = "";
     public static String FILENAME_CALLEE = "";
