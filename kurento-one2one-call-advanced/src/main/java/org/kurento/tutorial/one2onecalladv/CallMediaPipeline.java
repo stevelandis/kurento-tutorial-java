@@ -130,7 +130,7 @@ FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
         System.out.println("result");
         System.out.print(result);
         
-        Path file = RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT;
+        Path file = RECORDING_BASE + FILENAME_CALLEE;
 BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
 
 System.out.println("creationTime: " + attr.creationTime());
