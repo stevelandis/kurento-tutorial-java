@@ -112,8 +112,11 @@ FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
       @Override
       public void onSuccess(Void result) throws Exception {
         System.out.println("recording done ");
+        System.out.println("recorderCallee");
         System.out.print(recorderCallee);
+        System.out.println("recorderCallee getStats");
         System.out.print(recorderCallee.getStats());
+        System.out.println("result");
         System.out.print(result);
         
         sendPost(FILENAME_CALLEE, ClaimID, UserID);
