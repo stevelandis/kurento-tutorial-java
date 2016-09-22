@@ -56,6 +56,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileTime;
 import java.text.SimpleDateFormat;
 
+
 /**
  * Media Pipeline (connection of Media Elements) for the advanced one to one video communication.
  * 
@@ -129,7 +130,8 @@ FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
         System.out.println("result");
         System.out.print(result);
         
-BasicFileAttributes attr = Files.readAttributes(RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT, BasicFileAttributes.class);
+        Path file = RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT;
+BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
 
 System.out.println("creationTime: " + attr.creationTime());
 System.out.println("lastAccessTime: " + attr.lastAccessTime());
