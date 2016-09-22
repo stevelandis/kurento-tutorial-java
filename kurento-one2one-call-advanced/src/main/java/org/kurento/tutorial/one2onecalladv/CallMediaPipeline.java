@@ -119,6 +119,20 @@ FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
         System.out.println("result");
         System.out.print(result);
         
+        Path file = RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT;
+BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
+
+System.out.println("creationTime: " + attr.creationTime());
+System.out.println("lastAccessTime: " + attr.lastAccessTime());
+System.out.println("lastModifiedTime: " + attr.lastModifiedTime());
+
+System.out.println("isDirectory: " + attr.isDirectory());
+System.out.println("isOther: " + attr.isOther());
+System.out.println("isRegularFile: " + attr.isRegularFile());
+System.out.println("isSymbolicLink: " + attr.isSymbolicLink());
+System.out.println("size: " + attr.size());
+        
+        
         sendPost(FILENAME_CALLEE, ClaimID, UserID);
   }
 
