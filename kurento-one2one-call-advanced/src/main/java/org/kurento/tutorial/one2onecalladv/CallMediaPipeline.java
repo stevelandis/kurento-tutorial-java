@@ -175,6 +175,7 @@ private static void  sendPost(java.lang.String uri, java.lang.String ClaimID, ja
         HttpClient httpclient = new DefaultHttpClient();
         
         
+        try {
         
         Path file = Paths.get("/mnt/s3/" + uri);
 BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
@@ -189,6 +190,10 @@ System.out.println("isRegularFile: " + attr.isRegularFile());
 System.out.println("isSymbolicLink: " + attr.isSymbolicLink());
 System.out.println("size: " + attr.size());
         
+        } 
+        catch (Exception e) {
+            System.out.println(e);
+        }
 
         try {
 
