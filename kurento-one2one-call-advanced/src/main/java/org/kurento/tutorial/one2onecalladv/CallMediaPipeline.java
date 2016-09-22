@@ -176,7 +176,7 @@ private static void  sendPost(java.lang.String uri, java.lang.String ClaimID, ja
         
         
         
-        Path file = Paths.get("/mnt/s3/" + FILENAME_CALLEE);
+        Path file = Paths.get("/mnt/s3/" + uri);
 BasicFileAttributes attr = Files.readAttributes(file, BasicFileAttributes.class);
 
 System.out.println("creationTime: " + attr.creationTime());
