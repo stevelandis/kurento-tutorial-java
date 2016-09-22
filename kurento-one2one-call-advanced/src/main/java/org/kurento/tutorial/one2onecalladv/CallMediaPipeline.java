@@ -59,7 +59,7 @@ public class CallMediaPipeline {
   private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-S");
     public static final String RECORDING_BASE = "file:///mnt/s3/";
   public static final String RECORDING_PATH = df.format(new Date()) + "-";
-  public static final String RECORDING_EXT = ".mp4";
+  public static final String RECORDING_EXT = ".webm";
 
     public static String FILENAME_CALLER = "";
     public static String FILENAME_CALLEE = "";
@@ -91,7 +91,7 @@ FILENAME_CALLER = RECORDING_PATH + from + RECORDING_EXT;
 
     System.out.println(RECORDING_PATH + to + RECORDING_EXT);
 FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
-    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT).stopOnEndOfStream().withMediaProfile(MediaProfileSpecType.MP4 )
+    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT).stopOnEndOfStream()
         .build();
     
     // Connections
