@@ -91,8 +91,7 @@ FILENAME_CALLER = RECORDING_PATH + from + RECORDING_EXT;
 
     System.out.println(RECORDING_PATH + to + RECORDING_EXT);
 FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
-    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT).stopOnEndOfStream().withMediaProfile(MediaProfileSpecType.WEBM )
-        .build();
+    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_BASE + RECORDING_PATH + to + RECORDING_EXT).stopOnEndOfStream().withMediaProfile(MediaProfileSpecType.WEBM).build();
     
     
     webRtcCaller.connect(webRtcCallee);
@@ -105,6 +104,7 @@ FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
   public void record(final String ClaimID, final String UserID) {
     recorderCaller.record();
     recorderCallee.record();
+    /*
     recorderCallee.release(new Continuation<Void>() {
 
       @Override
@@ -121,6 +121,7 @@ FILENAME_CALLEE = RECORDING_PATH + to + RECORDING_EXT;
       public void onError(Throwable cause) throws Exception {
         System.out.println("recording failed");
       }
+            */
 });
   }
 
