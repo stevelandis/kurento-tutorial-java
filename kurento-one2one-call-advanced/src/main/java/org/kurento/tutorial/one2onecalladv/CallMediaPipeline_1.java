@@ -53,7 +53,7 @@ import org.apache.http.util.EntityUtils;
  * @author Micael Gallego (micael.gallego@gmail.com)
  * @since 5.0.0
  */
-public class CallMediaPipeline {
+public class CallMediaPipeline1 {
 
   private static final Logger log = LoggerFactory.getLogger(CallMediaPipeline.class);
   private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-S");
