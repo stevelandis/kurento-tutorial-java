@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.kurento.tutorial.one2onecallrec;
+package org.kurento.tutorial.one2onecalladv;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
