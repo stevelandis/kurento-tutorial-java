@@ -65,7 +65,7 @@ public class CallMediaPipeline {
     webRtcCallee.connect(recorderCallee);
   }
 
-  public void record() {
+  public void record(final String ClaimID, final String UserID) {
     recorderCaller.record();
     recorderCallee.record();
   }
