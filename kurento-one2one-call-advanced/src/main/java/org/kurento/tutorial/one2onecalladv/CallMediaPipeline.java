@@ -23,6 +23,7 @@ import org.kurento.client.KurentoClient;
 import org.kurento.client.MediaPipeline;
 import org.kurento.client.RecorderEndpoint;
 import org.kurento.client.WebRtcEndpoint;
+import org.kurento.client.MediaProfileSpecType;
 
 /**
  * Media Pipeline (connection of Media Elements) for the advanced one to one video communication.
