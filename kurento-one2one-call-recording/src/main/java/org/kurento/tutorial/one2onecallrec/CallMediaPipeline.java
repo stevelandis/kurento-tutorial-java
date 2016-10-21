@@ -34,9 +34,9 @@ import org.kurento.client.WebRtcEndpoint;
 public class CallMediaPipeline {
 
   private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-S");
-  public static final String RECORDING_PATH = "file:///tmp/" + df.format(new Date()) + "-";
+  public static final String RECORDING_PATH = "file:///mnt/s3/" + df.format(new Date()) + "-";
   public static final String RECORDING_EXT = ".webm";
-
+  
   private final MediaPipeline pipeline;
   private final WebRtcEndpoint webRtcCaller;
   private final WebRtcEndpoint webRtcCallee;
@@ -52,9 +52,9 @@ public class CallMediaPipeline {
     webRtcCaller = new WebRtcEndpoint.Builder(pipeline).build();
     webRtcCallee = new WebRtcEndpoint.Builder(pipeline).build();
 
-    recorderCaller = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + from + RECORDING_EXT)
+    recorderCaller = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + from + "_caller" + RECORDING_EXT)
         .build();
-    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + to + RECORDING_EXT)
+    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + to + "_callee" + RECORDING_EXT)
         .build();
 
     // Connections
