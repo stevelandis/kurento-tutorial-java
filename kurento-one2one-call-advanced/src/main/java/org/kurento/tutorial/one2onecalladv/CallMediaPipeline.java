@@ -54,9 +54,9 @@ public class CallMediaPipeline {
     webRtcCallee = new WebRtcEndpoint.Builder(pipeline).build();
 
     //recorderCaller = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + from + RECORDING_EXT).stopOnEndOfStream().withMediaProfile(MediaProfileSpecType.WEBM_VIDEO_ONLY).build();
-    recorderCaller = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + from + RECORDING_EXT).build();
+    recorderCaller = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + from + "_caller_" + RECORDING_EXT).withMediaProfile(MediaProfileSpecType.WEBM_VIDEO_ONLY).build();
     //recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + to + RECORDING_EXT).stopOnEndOfStream().withMediaProfile(MediaProfileSpecType.WEBM_VIDEO_ONLY).build();
-    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + to + RECORDING_EXT).build();
+    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + to + "_callee_" + RECORDING_EXT).withMediaProfile(MediaProfileSpecType.WEBM_VIDEO_ONLY).build();
 
     // Connections
     webRtcCaller.connect(webRtcCallee);
