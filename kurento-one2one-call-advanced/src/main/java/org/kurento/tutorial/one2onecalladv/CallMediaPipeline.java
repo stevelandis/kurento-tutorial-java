@@ -43,6 +43,7 @@ public class CallMediaPipeline {
   private final WebRtcEndpoint webRtcCallee;
   private final RecorderEndpoint recorderCaller;
   private final RecorderEndpoint recorderCallee;
+  private final RecorderEndpoint recorderCalleeA;
 
   public CallMediaPipeline(KurentoClient kurento, String from, String to) {
 
@@ -57,7 +58,7 @@ public class CallMediaPipeline {
     recorderCaller = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + from + "_caller" + RECORDING_EXT).withMediaProfile(MediaProfileSpecType.WEBM_VIDEO_ONLY).build();
     //recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + to + RECORDING_EXT).stopOnEndOfStream().withMediaProfile(MediaProfileSpecType.WEBM_VIDEO_ONLY).build();
     recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + to + "_callee" + RECORDING_EXT).withMediaProfile(MediaProfileSpecType.WEBM_VIDEO_ONLY).build();
-    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + to + "_audio" + RECORDING_EXT).withMediaProfile(MediaProfileSpecType.WEBM_AUDO_ONLY).build();
+    recorderCalleeA = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + to + "_audio" + RECORDING_EXT).withMediaProfile(MediaProfileSpecType.WEBM_AUDO_ONLY).build();
 
     // Connections
     webRtcCaller.connect(webRtcCallee);
@@ -65,11 +66,13 @@ public class CallMediaPipeline {
 
     webRtcCallee.connect(webRtcCaller);
     webRtcCallee.connect(recorderCallee);
+    webRtcCallee.connect(recorderCalleeA);
   }
 
   public void record(final String ClaimID, final String UserID) {
     recorderCaller.record();
     recorderCallee.record();
+    recorderCalleeA.record();
   }
 
   public String generateSdpAnswerForCaller(String sdpOffer) {
