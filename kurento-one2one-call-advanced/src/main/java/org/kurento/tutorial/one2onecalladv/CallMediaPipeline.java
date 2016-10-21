@@ -57,7 +57,7 @@ public class CallMediaPipeline {
     //recorderCaller = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + from + RECORDING_EXT).stopOnEndOfStream().withMediaProfile(MediaProfileSpecType.WEBM_VIDEO_ONLY).build();
     recorderCaller = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + from + "_caller" + RECORDING_EXT).withMediaProfile(MediaProfileSpecType.WEBM_VIDEO_ONLY).build();
     //recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + to + RECORDING_EXT).stopOnEndOfStream().withMediaProfile(MediaProfileSpecType.WEBM_VIDEO_ONLY).build();
-    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + to + "_callee" + RECORDING_EXT).withMediaProfile(MediaProfileSpecType.WEBM_VIDEO_ONLY).build();
+    recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + to + "_callee.mp4").withMediaProfile(MediaProfileSpecType.MP4).build();
     recorderCalleeA = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + to + "_audio" + RECORDING_EXT).withMediaProfile(MediaProfileSpecType.WEBM_AUDIO_ONLY).build();
 
     // Connections
