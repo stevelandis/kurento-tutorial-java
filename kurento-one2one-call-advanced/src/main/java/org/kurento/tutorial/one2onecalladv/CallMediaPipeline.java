@@ -36,7 +36,7 @@ public class CallMediaPipeline {
 
   private static final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss-S");
   public static final String RECORDING_PATH = "file:///mnt/s3/" + df.format(new Date()) + "-";
-  public static final String RECORDING_EXT = ".webm";
+  public static final String RECORDING_EXT = ".mp4";
 
   private final MediaPipeline pipeline;
   private final WebRtcEndpoint webRtcCaller;
@@ -53,7 +53,7 @@ public class CallMediaPipeline {
     webRtcCaller = new WebRtcEndpoint.Builder(pipeline).build();
     webRtcCallee = new WebRtcEndpoint.Builder(pipeline).build();
 
-    recorderCaller = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + from + RECORDING_EXT).stopOnEndOfStream().withMediaProfile(MediaProfileSpecType.WEBM_VIDEO_ONLY).build();
+    recorderCaller = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + from + RECORDING_EXT).stopOnEndOfStream().withMediaProfile(MediaProfileSpecType.MP4).build();
     recorderCallee = new RecorderEndpoint.Builder(pipeline, RECORDING_PATH + to + RECORDING_EXT).stopOnEndOfStream().withMediaProfile(MediaProfileSpecType.MP4).build();
 
     // Connections
